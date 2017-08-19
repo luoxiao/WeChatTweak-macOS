@@ -38,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		153504EC5C9196C0D85213CF /* libPods-WeChatTweak.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeChatTweak.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D165FCD1F474E5400127EE6 /* WeChatTweakConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeChatTweakConstants.h; sourceTree = "<group>"; };
 		7DF842271F40583F00D42D79 /* WeChatTweak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeChatTweak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DF8422A1F40583F00D42D79 /* WeChatTweak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeChatTweak.h; sourceTree = "<group>"; };
 		7DF8422B1F40583F00D42D79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				7DF8425F1F40590500D42D79 /* WeChatTweakHeaders.h */,
+				7D165FCD1F474E5400127EE6 /* WeChatTweakConstants.h */,
 				7DF8422B1F40583F00D42D79 /* Info.plist */,
 			);
 			name = "Supporting Files";

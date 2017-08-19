@@ -7,6 +7,8 @@
 //
 
 #import "TweakPreferecesController.h"
+#import "WeChatTweakHeaders.h"
+#import "WeChatTweakConstants.h"
 #import "NSBundle+WeChatTweak.h"
 
 @interface TweakPreferecesController () <MASPreferencesViewController>

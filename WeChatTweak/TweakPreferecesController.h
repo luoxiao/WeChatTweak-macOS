@@ -14,9 +14,6 @@ typedef NS_ENUM(NSUInteger, RevokeNotificationType) {
     RevokeNotificationTypeDisable,
 };
 
-static NSString * const WeChatTweakPreferenceAutoAuthKey = @"WeChatTweakPreferenceAutoAuthKey";
-static NSString * const WeChatTweakPreferenceRevokeNotificationTypeKey = @"WeChatTweakPreferenceRevokeNotificationTypeKey";
-
 @interface TweakPreferecesController : NSViewController
 
 @end

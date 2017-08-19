@@ -8,9 +8,14 @@
 
 #import "WeChatTweak.h"
 #import "WeChatTweakHeaders.h"
+#import "WeChatTweakConstants.h"
 #import "NSBundle+WeChatTweak.h"
 #import "NSString+WeChatTweak.h"
 #import "TweakPreferecesController.h"
+
+@interface NSObject (WeChatTweak) <NSTouchBarDelegate>
+
+@end
 
 @implementation NSObject (WeChatTweak)
 
@@ -23,6 +28,7 @@ static void __attribute__((constructor)) tweak(void) {
     [objc_getClass("MessageService") jr_swizzleMethod:NSSelectorFromString(@"onRevokeMsg:") withMethod:@selector(tweak_onRevokeMsg:) error:nil];
     [objc_getClass("CUtility") jr_swizzleClassMethod:NSSelectorFromString(@"HasWechatInstance") withClassMethod:@selector(tweak_HasWechatInstance) error:nil];
     [objc_getClass("MASPreferencesWindowController") jr_swizzleMethod:NSSelectorFromString(@"initWithViewControllers:") withMethod:@selector(tweak_initWithViewControllers:) error:nil];
+    class_addMethod(objc_getClass("MMComposeInputViewController"), @selector(makeTouchBar), method_getImplementation(class_getInstanceMethod(objc_getClass("MMComposeInputViewController"), @selector(tweak_makeTouchBar))), "@:");
 }
 
 #pragma mark - No Revoke Message
@@ -125,6 +131,9 @@ static void __attribute__((constructor)) tweak(void) {
             [accountService AutoAuth];
         }
     }
+    if ([NSTouchBar class]) {
+        [NSApplication sharedApplication].automaticCustomizeTouchBarMenuItemEnabled = true;
+    }
 }
 
 - (NSApplicationTerminateReply)tweak_applicationShouldTerminate:(NSApplication *)sender {
@@ -143,6 +152,31 @@ static void __attribute__((constructor)) tweak(void) {
     TweakPreferecesController *controller = [[TweakPreferecesController alloc] initWithNibName:nil bundle:[NSBundle tweakBundle]];
     [viewControllers addObject:controller];
     return [self tweak_initWithViewControllers:viewControllers];
+}
+
+#pragma mark - TouchBar
+
++ (BOOL)isSupportTouchBar {
+    return NSClassFromString(@"NSTouchBar") != nil;
+}
+
+- (NSTouchBar *)tweak_makeTouchBar {
+    if ([NSObject isSupportTouchBar]) {
+        return nil;
+    }
+    NSTouchBar *touchBar = [[NSTouchBar alloc] init];
+    touchBar.delegate = self;
+    touchBar.customizationIdentifier = WeChatTweakTouchBarIdentifier;
+    touchBar.defaultItemIdentifiers = @[NSTouchBarItemIdentifierOtherItemsProxy];
+    touchBar.customizationAllowedItemIdentifiers = @[];
+    return touchBar;
+}
+
+- (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier {
+    if ([NSObject isSupportTouchBar]) {
+        return nil;
+    }
+    return nil;
 }
 
 @end
